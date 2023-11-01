@@ -1,0 +1,52 @@
+From 6851cb325a3508bbdaf58324dcf5968b31eebde8 Mon Sep 17 00:00:00 2001
+From: Zuzana Miklankova <zmiklank@redhat.com>
+Date: Mon, 11 Apr 2022 12:44:39 +0200
+Subject: [PATCH] compliance for jna 4
+
+More information:
+https://github.com/java-native-access/jna/blob/5.0.0/src/com/sun/jna/Native.java#L599
+https://github.com/java-native-access/jna/blob/5.0.0/CHANGES.md#features-12
+
+---
+ .../mariadb/jdbc/internal/io/socket/SharedMemorySocket.java   | 4 ++--
+ .../org/mariadb/jdbc/internal/util/pid/JnaPidFactory.java     | 2 +-
+ 2 files changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/src/main/java/org/mariadb/jdbc/internal/io/socket/SharedMemorySocket.java b/src/main/java/org/mariadb/jdbc/internal/io/socket/SharedMemorySocket.java
+index 74a4f4b1..2abdcba8 100644
+--- a/src/main/java/org/mariadb/jdbc/internal/io/socket/SharedMemorySocket.java
++++ b/src/main/java/org/mariadb/jdbc/internal/io/socket/SharedMemorySocket.java
+@@ -284,7 +284,7 @@ public class SharedMemorySocket extends Socket {
+ 
+   public interface Kernel32 extends StdCallLibrary {
+ 
+-    Kernel32 INSTANCE = Native.load("Kernel32", Kernel32.class, WIN32API_OPTIONS);
++    Kernel32 INSTANCE = Native.loadLibrary("Kernel32", Kernel32.class, WIN32API_OPTIONS);
+     int FILE_MAP_WRITE = 0x0002;
+     int FILE_MAP_READ = 0x0004;
+     int EVENT_MODIFY_STATE = 0x0002;
+@@ -327,7 +327,7 @@ public class SharedMemorySocket extends Socket {
+ 
+   public interface Advapi32 extends StdCallLibrary {
+ 
+-    Advapi32 INSTANCE = Native.load("advapi32", Advapi32.class, WIN32API_OPTIONS);
++    Advapi32 INSTANCE = Native.loadLibrary("advapi32", Advapi32.class, WIN32API_OPTIONS);
+ 
+     boolean ConvertStringSecurityDescriptorToSecurityDescriptor(
+         String sddl, int sddlVersion, PointerByReference psd, IntByReference length);
+diff --git a/src/main/java/org/mariadb/jdbc/internal/util/pid/JnaPidFactory.java b/src/main/java/org/mariadb/jdbc/internal/util/pid/JnaPidFactory.java
+index 88cc2d5e..6e872035 100644
+--- a/src/main/java/org/mariadb/jdbc/internal/util/pid/JnaPidFactory.java
++++ b/src/main/java/org/mariadb/jdbc/internal/util/pid/JnaPidFactory.java
+@@ -99,7 +99,7 @@ public class JnaPidFactory {
+   }
+ 
+   private interface CLibrary extends Library {
+-    CLibrary INSTANCE = Native.load("c", CLibrary.class);
++    CLibrary INSTANCE = Native.loadLibrary("c", CLibrary.class);
+ 
+     int getpid();
+   }
+-- 
+2.35.1
+
