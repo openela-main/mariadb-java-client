@@ -1,0 +1,25 @@
+commit 5cee5e0b2a68d9a62cc5bb447dc1487457517238
+Author: Mikolaj Izdebski <mizdebsk@redhat.com>
+Date:   Thu Feb 3 15:10:07 2022 +0100
+
+    [PATCH] change Java9 compile source root
+
+---
+ pom.xml | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/pom.xml b/pom.xml
+index 6354ce0a..c6690f8b 100644
+--- a/pom.xml
++++ b/pom.xml
+@@ -124,7 +124,7 @@
+                             <source>9</source>
+                             <target>9</target>
+                             <compileSourceRoots>
+-                                <compileSourceRoot>${project.basedir}/src/main/java9</compileSourceRoot>
++                                <compileSourceRoot>${project.basedir}/src/main/java</compileSourceRoot>
+                             </compileSourceRoots>
+                             <multiReleaseOutput>true</multiReleaseOutput>
+                         </configuration>
+--
+2.34.1
